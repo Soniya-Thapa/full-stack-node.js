@@ -26,10 +26,6 @@ app.patch("/books/:id",function(req,res){ //id ley userley kun book update garne
     message : "books updated successfully"
   })
 })
-
-
-// DATABASE_URL="postgresql://postgres.ydrmedmuipsjygecviqz:678788@Sss@aws-0-ap-south-1.pooler.supabase.com:6543/postgres"
-
 app.listen(3000, function () {
   console.log("server/backend/node project has started at port 3000")
 })
