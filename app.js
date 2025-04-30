@@ -1,11 +1,14 @@
 const express = require('express')
+const { books } = require('./database/connection')
 const app = express()
 require("./database/connection") //./ = ma jaha xu , database = tyeha yo folder xa , / = tyo bhitra , connection = yo file xa 
 
-app.get("/books",function(req,res){
+app.get("/books",async function(req,res){
+  const datas = await books.findAll() //select *from books findAll()=>always returns array 
   //logic to fetch books from database
   res.json({
-    message : "books fetched successfully"
+    message : "books fetched successfully",
+    datas //alternate : datas :datas  only valid in js if the name of key and value are same
   })
 })
 app.post("/books",function(req,res){
