@@ -2,6 +2,7 @@ const express = require('express')
 const { books } = require('./database/connection')
 const app = express()
 require("./database/connection") //./ = ma jaha xu , database = tyeha yo folder xa , / = tyo bhitra , connection = yo file xa 
+app.use(express.json()) // yo code hanexi json data expressley bujhxa and postman bata post gareko json data dekhinxa 
 
 app.get("/books",async function(req,res){
   const datas = await books.findAll() //select *from books findAll()=>always returns array 
@@ -11,12 +12,24 @@ app.get("/books",async function(req,res){
     datas //alternate : datas :datas  only valid in js if the name of key and value are same
   })
 })
-app.post("/books",function(req,res){
+
+app.post("/books",async function(req,res){
+  console.log(req.body) //req.body => object
   //logic to add books from database
+  const {bookName,bookPrice,bookAuthor,bookGenre} =req.body //this is destructor and can be only done with objects
+  console.log(bookName)
+  console.log(bookPrice)
+  await books.create({
+    bookName,
+    bookPrice,
+    bookAuthor,
+    bookGenre
+  })
   res.json({
     message : "books added successfully"
   })
 })
+
 app.delete("/books/:id",function(req,res){ //id ley userley kun book delete garney bhanxa
   //logic to delete books from database
   res.json({
