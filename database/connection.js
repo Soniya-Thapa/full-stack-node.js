@@ -22,6 +22,7 @@ sequelizeobj.authenticate().then(()=>{
   console.log("Error"+err)
 })
 
+//only for understanding purpose: 
 // const info = {
 //   name : "soniya"
 // }
