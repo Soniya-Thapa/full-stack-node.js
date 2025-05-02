@@ -1,4 +1,4 @@
-
+const { books } = require("../database/connection")
 
 exports.fetchBooks = async function(req,res){
   const datas = await books.findAll() //select *from books findAll()=>always returns array 
@@ -37,5 +37,15 @@ exports.editBook = function(req,res){ //id ley userley kun book update garney bh
   //logic to update books from database
   res.json({
     message : "books updated successfully"
+  })
+}
+
+exports.singleFetchBook = async function(req,res){
+  //first capture what id he/she is sending
+  const id = req.params.id  //(/books./id => yesko id ho)
+  const datas = await books.findByPk(id) //always return object and findAll() => returns array
+  res.json({
+    message : "Single Book fetched successfully",
+    datas
   })
 }
