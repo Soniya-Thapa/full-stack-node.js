@@ -29,7 +29,7 @@ exports.addBook = async function(req,res){
 exports.deleteBook = async function(req,res){ //id ley userley kun book delete garney bhanxa
   //logic to delete books from database
   //first ma hami kun book delete garna aateko ho tyesko id lim
-  const id = req.params.id //const{id} = req.params
+  const id = req.params.id //const{id} = req.params => params ko satto body batalida nih hunxa req.body.id
   //id payepaxi tyo id ko book chai books tables bata uthdidim
   await books.destroy({
     where :{
@@ -41,8 +41,23 @@ exports.deleteBook = async function(req,res){ //id ley userley kun book delete g
   })
 }
 
-exports.editBook = function(req,res){ //id ley userley kun book update garney bhanxa
+exports.editBook = async function(req,res){ //id ley userley kun book update garney bhanxa
   //logic to update books from database
+  //kun id ko chahi edit garney tyo id lina paryo
+  const id = req.params.id
+  //kk update garney ta 
+  const {bookName,bookPrice,bookGenre,bookAuthor} = req.body
+  await books.update({
+    bookName, //bookName : bookName,
+    bookPrice, //bookPrice:bookPrice,
+    bookAuthor,  //bookAuthor:bookAuthor,
+    bookGenre}, //bookGenre:bookGenre},
+    {where :
+      {
+        id
+      }
+    })
+
   res.json({
     message : "books updated successfully"
   })
