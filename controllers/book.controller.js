@@ -26,8 +26,16 @@ exports.addBook = async function(req,res){
   })
 }
 
-exports.deleteBook = function(req,res){ //id ley userley kun book delete garney bhanxa
+exports.deleteBook = async function(req,res){ //id ley userley kun book delete garney bhanxa
   //logic to delete books from database
+  //first ma hami kun book delete garna aateko ho tyesko id lim
+  const id = req.params.id //const{id} = req.params
+  //id payepaxi tyo id ko book chai books tables bata uthdidim
+  await books.destroy({
+    where :{
+      id //id : id
+    }
+  }) //delete from books where id = id
   res.json({
     message : "books deleted successfully"
   })
