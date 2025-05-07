@@ -420,7 +420,7 @@ const bookModel = (sequelize,Datatypes)=>{ //bookModel = function ra yo function
 module.exports = bookModel //export default bookModel
 
 
-                                                          Connection.js
+                                                 Connection.js
 
 //hami yeha database connection ko code/logic lekhxau
 const {Sequelize,DataTypes} = require("sequelize") //const bhitra k k halna milxa hernalai ctrl + space , ra {...} yo bhitra j pani lekhinxa tyo predefined hunxa, j pani lekna mildaina, ra yiniharu sequelize bhitra bata k k chainxa tyo kura ho ..
