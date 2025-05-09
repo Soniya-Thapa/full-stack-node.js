@@ -2,8 +2,9 @@
 const {Sequelize,DataTypes} = require("sequelize") //const bhitra k k halna milxa hernalai ctrl + space , ra {...} yo bhitra j pani lekhinxa tyo predefined hunxa, j pani lekna mildaina, ra yiniharu sequelize bhitra bata k k chainxa tyo kura ho ..
 
 const bookModel = require("./models/book.model")
-const userModel = require("./models/user.model")
-const productModel = require("./models/product.model")
+
+// const userModel = require("./models/user.model")
+// const productModel = require("./models/product.model")
 
 //alternate process 
 // const sequelize = require("sequelize")
@@ -40,8 +41,10 @@ db.Sequelize = Sequelize //key=value
 db.sequelizeobj = sequelizeobj
 
 db.books=bookModel(sequelizeobj,DataTypes)
-db.users=userModel(sequelizeobj,DataTypes)
-db.products=productModel(sequelizeobj,DataTypes)
+
+
+// db.users=userModel(sequelizeobj,DataTypes)
+// db.products=productModel(sequelizeobj,DataTypes)
 //Alternate : require("./models/book.model")()
 
 //this is the migrate code:
