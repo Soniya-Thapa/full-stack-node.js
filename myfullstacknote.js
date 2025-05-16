@@ -476,3 +476,152 @@ sequelizeobj.sync({force:false,alter : false}).then(()=>{
 module.exports = db
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+const express = require("express")
+const app = express()
+
+const bookRoute = require("./routes/book.route")
+app.use("", bookRoute)
+
+require("./database/connection")
+
+app.use(express.json())
+
+app.listen(3000, function () {
+  console.log("server connected")
+})
+
+
+//database connection ko code
+const { Sequelize, Datatypes, default: sequelize } = require("sequelize")
+const sequelizeObj = new Sequelize("progresql...")
+const bookModel = require("./models/book.model")
+
+sequelizeObj.authenticate().then(() => {
+  console.log("authentication successfull")
+})
+  .catch((err) => {
+    console.log("error" + err)
+  })
+const db = {}
+db.Sequelize = Sequelize
+db.sequelizeObj = sequelizeobj
+db.bookModel = bookModel
+
+sequelizeObj.sync({ force: false, alter: false }).then(() => {
+  console.log("migrate happened")
+})
+
+module.exports = db
+
+
+//book model ko code :
+
+const bookModel = (Sequelize, Datatypes) => {
+  const book = sequelize.define("book", {
+    bookName: {
+      type: Datatypes.STRING,
+      allowNull: false
+    },
+    bookPrice: {
+      type: Datatypes.INTEGER,
+      allowNull: false
+    },
+    bookAuthor: {
+      type: Datatypes.STRING,
+      allowNull: false
+    },
+    bookGenre: {
+      type: Datatypes.STRING,
+      allowNull: false
+    }
+  })
+  return book
+}
+module.exports = bookModel
+
+
+//controller ko code :
+
+const { bookModel } = require("./database/connection")
+
+export fetchBooks = function (req, res) {
+  const datas = bookModel.findAll()
+  res.json({
+    message: "books fetched successfully"
+    datas
+  })
+}
+export addBook = function (req, res) {
+  const { bookName,
+    bookPrice,
+    bookAuthor,
+    bookGenre } = req.body
+  bookModel.create({
+    bookName,
+    bookPrice,
+    bookAuthor,
+    bookGenre
+  })
+  res.json({
+    message: "books added successfully"
+  })
+}
+
+export deleteBook = function (req, res) {
+  const id = req.params.id
+
+  bookModel.destroy({
+    where: {
+      id: id
+    }
+  })
+  res.json({
+    message: "books deleted successfully"
+  })
+}
+
+export editBook = function (req, res) {
+  const id = req.params.id
+  const { bookName,
+    bookPrice,
+    bookAuthor,
+    bookGenre } = req.body
+  bookModel.update({
+    bookName,
+    bookPrice,
+    bookAuthor,
+    bookGenre
+  }, {
+    where: {
+      id
+    }
+  })
+  res.json({
+    message: "books updated successfully"
+  })
+}
+
+export singleFetchBook = function(req,res){
+  const id = req.params.id
+  const datas = bookModel.findByPk(id)
+  res.json({
+    message : "single book fetched",
+    datas
+  })
+}
+
+
+//route code is here:
+
+const router = require("express").Router()
+const(fetchBooks,addBook,deleteBook,editBook,singleFetchBook) = require("./controllers/book.controller")
+
+router.route("/books",get(fetchBooks),post(addBook))
+router.route("/books/:id",delete(deleteBook),patch(editBook).get(singleFetchBook))
+
+module.export = router
+
