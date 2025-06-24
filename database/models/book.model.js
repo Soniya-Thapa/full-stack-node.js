@@ -16,6 +16,9 @@ const bookModel = (sequelize,Datatypes)=>{ //bookModel = function ra yo function
     },
     bookGenre :{
       type:Datatypes.STRING
+    },
+    bookDescription : {
+      type : Datatypes.TEXT
     }
   })
   return Book
