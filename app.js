@@ -1,6 +1,10 @@
+// const app = require("express")()
+
 const express = require('express')
 const app = express()
+
 const cors = require("cors")
+
 const bookRoute = require("./routes/book.route")
 
 require("./database/connection") //./ = ma jaha xuuu, database = tyeha yo folder xa , / = tyo bhitra , connection = yo file xa 
@@ -20,3 +24,6 @@ app.use("",bookRoute)
 app.listen(3000, function () {
   console.log("server/backend/node project has started at port 3000")
 })
+
+
+
